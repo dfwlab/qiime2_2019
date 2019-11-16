@@ -29,20 +29,20 @@ RUN cd ../temp/q2-picrust2-0.0.1 && \
 #    rm -rf *
 
 # 添加notebook配置文件（本地使用）
-ADD jupyter_notebook_config.py /home/qiime2/.jupyter/
+#ADD jupyter_notebook_config.py /home/qiime2/.jupyter/
 
 # create user with a home directory (Binder使用)
-#ARG NB_USER=qiime2
-#ARG NB_UID=1000
-#ENV USER ${NB_USER}
-#ENV HOME /home/${NB_USER}
-#
-#RUN adduser --disabled-password \
-#    --gecos "Default user" \
-#    --uid ${NB_UID} \
-#    ${NB_USER}
-#WORKDIR ${HOME}
-#USER ${USER}
+ARG NB_USER=qiime2
+ARG NB_UID=1000
+ENV USER ${NB_USER}
+ENV HOME /home/${NB_USER}
+
+RUN adduser --disabled-password \
+    --gecos "Default user" \
+    --uid ${NB_UID} \
+    ${NB_USER}
+WORKDIR ${HOME}
+USER ${USER}
 
 #启动notebook（本地使用）
 #CMD /bin/bash
