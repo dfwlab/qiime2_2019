@@ -8,7 +8,13 @@ MAINTAINER ddhmed dfw_bioinfo@126.com
 RUN pip install --no-cache --upgrade pip && \
     pip install --no-cache notebook
 
-RUN yum install -y unzip zip
+#RUN cd ../tmp && \
+#    wget http://downloads.sourceforge.net/infozip/unzip552.tar.gz && \
+#    tar zxvf unzip552.tar.gz && \
+#    cd unzip-5.52/ && \
+#    cp unix/Makefile ./ && \
+#    make generic && \
+#    make install
 
 # install the PyGithub
 RUN pip install PyGithub
@@ -21,7 +27,7 @@ ADD q2-picrust2-0.0.1.tar /tmp
 RUN cd ../tmp && \
     wget https://github.com/picrust/picrust2/releases/download/v2.0.3-b/picrust2-2.0.3-b.zip && \
     unzip picrust2-2.0.3-b.zip && \
-    cd /picrust2-2.0.3-b && \
+    cd picrust2-2.0.3-b && \
     conda-env update -n qiime2-2019.10 -f picrust2-env.yaml && \
     pip install --editable .
 
