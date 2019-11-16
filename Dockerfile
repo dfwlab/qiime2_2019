@@ -8,6 +8,8 @@ MAINTAINER ddhmed dfw_bioinfo@126.com
 RUN pip install --no-cache --upgrade pip && \
     pip install --no-cache notebook
 
+RUN apt-get install zip
+
 # install the PyGithub
 RUN pip install PyGithub
 
