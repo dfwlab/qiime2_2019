@@ -12,12 +12,14 @@ RUN pip install --no-cache --upgrade pip && \
 RUN pip install PyGithub
 
 # copy file
-ADD picrust2-2.0.3-b.tar /tmp
+#ADD picrust2-2.0.3-b.tar /tmp
 ADD q2-picrust2-0.0.1.tar /tmp
 
 # install picrust2
-RUN cd ../tmp && ls
-RUN cd ../tmp/picrust2-2.0.3-b && \
+RUN cd ../tmp && \
+    wget https://github.com/picrust/picrust2/releases/download/v2.0.3-b/picrust2-2.0.3-b.zip && \
+    unzip picrust2-2.0.3-b.zip && \
+    cd /picrust2-2.0.3-b && \
     conda-env update -n qiime2-2019.10 -f picrust2-env.yaml && \
     pip install --editable .
 
