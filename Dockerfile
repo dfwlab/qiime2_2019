@@ -25,8 +25,9 @@ ADD q2-picrust2-0.0.1.tar /tmp
 
 # install picrust2
 RUN cd ../tmp && \
-    wget https://github.com/picrust/picrust2/releases/download/v2.0.3-b/picrust2-2.0.3-b.zip && \
-    unzip picrust2-2.0.3-b.zip && \
+    wget http://sh-ctfs.ftn.qq.com/ftn_handler/cd473c12e5ffe24f36c88a0f727ca9255666a05b3eeae92ecf666603b280548f71e66d1f30a343a1ec18a5b25eed597fabefff61c315c65bb8dbf4c5829acb0d/?fname=picrust2-2.0.3-b.tar && \
+    mv index.html?fname=picrust2-2.0.3-b.tar picrust2-2.0.3-b.tar &&\
+    tar -xvf picrust2-2.0.3-b.tar && \
     cd picrust2-2.0.3-b && \
     conda-env update -n qiime2-2019.10 -f picrust2-env.yaml && \
     pip install --editable .
