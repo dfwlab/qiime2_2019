@@ -13,10 +13,6 @@ RUN pip install --no-cache --upgrade pip && \
 # install the PyGithub
 RUN pip install PyGithub
 
-# copy file
-COPY mouse_tutorial /data/mouse_tutorial
-COPY mouse_result /data/mouse_result
-COPY qiime_viwer.py /data
 #ADD picrust2-2.0.3-b.tar /tmp
 ADD q2-picrust2-0.0.1.tar /tmp
 
@@ -46,7 +42,12 @@ RUN adduser --disabled-password \
 WORKDIR ${HOME}
 USER ${USER}
 
-WORKDIR /data
+# copy file
+COPY mouse_tutorial /data/mouse_tutorial
+COPY mouse_result /data/mouse_result
+COPY qiime_viwer.py /data
+
+WORKDIR ${HOME}/data
 # 删除临时文件
 #RUN cd ../temp && \
 #    rm -rf *
