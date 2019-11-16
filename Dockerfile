@@ -6,19 +6,6 @@ MAINTAINER ddhmed dfw_bioinfo@126.com
 
 RUN ls
 
-# create user with a home directory (Binder使用)
-ARG NB_USER
-ARG NB_UID
-ENV USER ${NB_USER}
-ENV HOME /home/${NB_USER}
-
-RUN adduser --disabled-password \
-    --gecos "Default user" \
-    --uid ${NB_UID} \
-    ${NB_USER}
-WORKDIR ${HOME}
-USER ${USER}
-
 # install the notebook package
 RUN pip install --no-cache --upgrade pip && \
     pip install --no-cache notebook
@@ -45,6 +32,19 @@ RUN cd ../tmp && \
 RUN cd ../tmp/q2-picrust2-0.0.1 && \
     python setup.py install && \
     qiime dev refresh-cache
+
+# create user with a home directory (Binder使用)
+ARG NB_USER
+ARG NB_UID
+ENV USER ${NB_USER}
+ENV HOME /home/${NB_USER}
+
+RUN adduser --disabled-password \
+    --gecos "Default user" \
+    --uid ${NB_UID} \
+    ${NB_USER}
+WORKDIR ${HOME}
+USER ${USER}
 
 WORKDIR /data
 # 删除临时文件
