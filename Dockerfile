@@ -8,14 +8,6 @@ MAINTAINER ddhmed dfw_bioinfo@126.com
 RUN pip install --no-cache --upgrade pip && \
     pip install --no-cache notebook
 
-RUN cd ../tmp && \
-    wget http://downloads.sourceforge.net/infozip/unzip552.tar.gz && \
-    tar zxvf unzip552.tar.gz && \
-    cd unzip-5.52/ && \
-    cp unix/Makefile ./ && \
-    make generic && \
-    make install
-
 # install the PyGithub
 RUN pip install PyGithub
 
