@@ -12,17 +12,16 @@ RUN pip install --no-cache --upgrade pip && \
 RUN pip install PyGithub
 
 # copy file
-ADD picrust2-2.0.3-b.tar /data
-ADD q2-picrust2-0.0.1.tar /data
+ADD picrust2-2.0.3-b.tar /tmp
+ADD q2-picrust2-0.0.1.tar /tmp
 
 # install picrust2
-RUN ls
-RUN cd .. && ls
-RUN cd /data/picrust2-2.0.3-b && \
+RUN cd ../tmp && tar -xvf picrust2-2.0.3-b.tar && ls
+RUN cd ../tmp/picrust2-2.0.3-b && \
     conda-env update -n qiime2-2019.10 -f picrust2-env.yaml && \
     pip install --editable .
 
-RUN cd /data/q2-picrust2-0.0.1 && \
+RUN cd ../tmp/q2-picrust2-0.0.1 && \
     python setup.py install && \
     qiime dev refresh-cache
 
