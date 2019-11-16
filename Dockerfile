@@ -16,6 +16,8 @@ ADD picrust2-2.0.3-b.tar /data
 ADD q2-picrust2-0.0.1.tar /data
 
 # install picrust2
+RUN ls
+RUN cd .. && ls
 RUN cd /data/picrust2-2.0.3-b && \
     conda-env update -n qiime2-2019.10 -f picrust2-env.yaml && \
     pip install --editable .
