@@ -16,7 +16,7 @@ RUN adduser --disabled-password \
     --gecos "Default user" \
     --uid ${NB_UID} \
     ${NB_USER}
-WORKDIR /data
+WORKDIR ${HOME}
 USER ${USER}
 
 # install the notebook package
@@ -46,6 +46,7 @@ RUN cd ../tmp/q2-picrust2-0.0.1 && \
     python setup.py install && \
     qiime dev refresh-cache
 
+WORKDIR /data
 # 删除临时文件
 #RUN cd ../temp && \
 #    rm -rf *
