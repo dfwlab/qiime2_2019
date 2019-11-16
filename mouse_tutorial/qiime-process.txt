@@ -1,0 +1,44 @@
+
+source activate qiime2-2019.7
+
+#cd mouse_tutorial
+### import metadata table
+qiime metadata tabulate --m-input-file metadata.tsv --o-visualization metadata.qzv
+### import sequences data
+qiime tools import --type 'SampleData[SequencesWithQuality]' --input-format SingleEndFastqManifestPhred33V2 --input-path ./manifest.tsv --output-path ./demux_seqs.qza 
+### sequences statistic
+qiime demux summarize --i-data ./demux_seqs.qza --o-visualization ./demux_seqs.qzv
+### pick ASV/feature by DADA2 (~ 2min)
+qiime dada2 denoise-single --i-demultiplexed-seqs ./demux_seqs.qza --p-trim-left 0 --p-trunc-len 150 --p-n-threads 2 --o-table ./dada2_table.qza --o-representative-sequences ./dada2_rep_set.qza --o-denoising-stats ./dada2_stats.qza
+### denoising statistics
+qiime metadata tabulate --m-input-file ./dada2_stats.qza --o-visualization ./dada2_stats.qzv
+### summary of feature table
+qiime feature-table summarize --i-table ./dada2_table.qza --m-sample-metadata-file ./metadata.tsv --o-visualization ./dada2_table.qzv
+### generating a phylogenetic tree (~21min)
+#qiime fragment-insertion sepp --i-representative-sequences ./dada2_rep_set.qza --o-tree ./tree.qza --o-placements ./tree_placements.qza --p-threads 2
+qiime phylogeny align-to-tree-mafft-fasttree --i-sequences ./dada2_rep_set.qza --o-alignment ./aligned_dada2_rep_set.qza --o-masked-alignment ./masked_aligneddada2_rep_set.qza --o-tree ./unrooted_tree.qza --o-rooted-tree ./rooted_tree.qza
+### alpha diversity
+qiime diversity alpha-rarefaction --i-table ./dada2_table.qza --m-metadata-file ./metadata.tsv --o-visualization ./alpha_rarefaction_curves.qzv --p-max-depth 2000
+### alpha diversity (set multiple metrics)
+qiime diversity alpha-rarefaction --i-table ./dada2_table.qza --m-metadata-file ./metadata.tsv --o-visualization ./alpha_rarefaction_curves.qzv --p-max-depth 2000 --i-phylogeny ./tree.qza --p-metrics goods_coverage --p-metrics chao1 --p-metrics faith_pd --p-metrics shannon --p-metrics observed_otus
+### diversity analysis 
+qiime diversity core-metrics-phylogenetic --i-table ./dada2_table.qza --i-phylogeny ./rooted_tree.qza --m-metadata-file ./metadata.tsv --p-sampling-depth 2000 --output-dir ./core-metrics-results
+### alpha diversity analysis
+qiime diversity alpha-group-significance --i-alpha-diversity ./core-metrics-results/faith_pd_vector.qza --m-metadata-file ./metadata.tsv --o-visualization ./core-metrics-results/faiths_pd_statistics.qzv
+qiime diversity alpha-group-significance --i-alpha-diversity ./core-metrics-results/evenness_vector.qza --m-metadata-file ./metadata.tsv --o-visualization ./core-metrics-results/evenness_statistics.qzv
+### beta
+qiime diversity beta-group-significance --i-distance-matrix core-metrics-results/weighted_unifrac_distance_matrix.qza --m-metadata-file ./metadata.tsv --m-metadata-column donor --o-visualization core-metrics-results/weighted-unifrac-donor-significance.qzv
+
+qiime diversity beta-group-significance --i-distance-matrix core-metrics-results/weighted_unifrac_distance_matrix.qza --m-metadata-file ./metadata.tsv --m-metadata-column cage_id --o-visualization core-metrics-results/weighted-unifrac-cage-significance.qzv --p-pairwise
+
+qiime diversity beta-group-significance --i-distance-matrix core-metrics-results/weighted_unifrac_distance_matrix.qza --m-metadata-file ./metadata.tsv --m-metadata-column cage_id --o-visualization core-metrics-results/weighted-unifrac-cage-significance_disp.qzv --p-method permdisp
+
+qiime diversity adonis --i-distance-matrix core-metrics-results/unweighted_unifrac_distance_matrix.qza --m-metadata-file ./metadata.tsv --o-visualization core-metrics-results/unweighted_adonis.qzv --p-formula genotype+donor
+### assign taxonomy (~ 1min)
+qiime feature-classifier classify-sklearn --i-reads ./dada2_rep_set.qza --i-classifier ./gg-13-8-99-nb-classifier.qza --o-classification ./taxonomy.qza
+qiime metadata tabulate --m-input-file ./taxonomy.qza --o-visualization ./taxonomy.qzv
+qiime feature-table tabulate-seqs --i-data ./dada2_rep_set.qza --o-visualization ./dada2_rep_set.qzv
+### taxonomy barplot
+qiime feature-table filter-samples --i-table ./dada2_table.qza --p-min-frequency 2000 --o-filtered-table ./table_2k.qza
+qiime taxa barplot --i-table ./table_2k.qza --i-taxonomy ./taxonomy.qza --m-metadata-file ./metadata.tsv --o-visualization ./taxa_barplot.qzv
+
