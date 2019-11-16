@@ -43,9 +43,9 @@ WORKDIR ${HOME}
 USER ${USER}
 
 # copy file
-COPY mouse_tutorial /data/mouse_tutorial
-COPY mouse_result /data/mouse_result
-COPY qiime_viwer.py /data
+COPY mouse_tutorial ${HOME}/data/mouse_tutorial
+COPY mouse_result ${HOME}/data/mouse_result
+COPY qiime_viwer.py ${HOME}/data
 
 WORKDIR ${HOME}/data
 # 删除临时文件
