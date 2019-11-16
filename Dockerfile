@@ -4,8 +4,6 @@ FROM qiime2/core:2019.10
 # 作者和邮箱
 MAINTAINER ddhmed dfw_bioinfo@126.com
 
-RUN ls
-
 # install the notebook package
 RUN pip install --no-cache --upgrade pip && \
     pip install --no-cache notebook
@@ -35,6 +33,11 @@ ARG NB_UID
 ENV USER ${NB_USER}
 ENV HOME /home/${NB_USER}
 
+# copy file
+COPY mouse_tutorial ${HOME}/mouse_tutorial
+COPY mouse_result ${HOME}/mouse_result
+COPY qiime_viwer.py ${HOME}
+
 RUN adduser --disabled-password \
     --gecos "Default user" \
     --uid ${NB_UID} \
@@ -42,12 +45,6 @@ RUN adduser --disabled-password \
 WORKDIR ${HOME}
 USER ${USER}
 
-# copy file
-COPY mouse_tutorial ${HOME}/data/mouse_tutorial
-COPY mouse_result ${HOME}/data/mouse_result
-COPY qiime_viwer.py ${HOME}/data
-
-WORKDIR ${HOME}/data
 # 删除临时文件
 #RUN cd ../temp && \
 #    rm -rf *
