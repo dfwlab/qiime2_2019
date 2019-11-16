@@ -33,17 +33,17 @@ ARG NB_UID
 ENV USER ${NB_USER}
 ENV HOME /home/${NB_USER}
 
-# copy file
-COPY mouse_tutorial ${HOME}/mouse_tutorial
-COPY mouse_result ${HOME}/mouse_result
-COPY qiime_viwer.py ${HOME}
-
 RUN adduser --disabled-password \
     --gecos "Default user" \
     --uid ${NB_UID} \
     ${NB_USER}
 WORKDIR ${HOME}
 USER ${USER}
+
+# copy file
+COPY mouse_tutorial ${HOME}/mouse_tutorial
+COPY mouse_result ${HOME}/mouse_result
+COPY qiime_viwer.py ${HOME}
 
 # 删除临时文件
 #RUN cd ../temp && \
