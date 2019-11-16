@@ -1,3 +1,4 @@
+# %load /home/jovyan/.jupyter/jupyter_notebook_config.py
 # Configuration file for jupyter-notebook.
 
 #------------------------------------------------------------------------------
@@ -201,7 +202,7 @@
 #c.NotebookApp.iopub_msg_rate_limit = 1000
 
 ## The IP address the notebook server will listen on.
-c.NotebookApp.ip = '*'
+#c.NotebookApp.ip = 'localhost'
 
 ## Supply extra arguments that will be passed to Jinja environment.
 #c.NotebookApp.jinja_environment_options = {}
@@ -264,7 +265,7 @@ c.NotebookApp.ip = '*'
 #  platform dependent and determined by the python standard library `webbrowser`
 #  module, unless it is overridden using the --browser (NotebookApp.browser)
 #  configuration option.
-c.NotebookApp.open_browser = False
+#c.NotebookApp.open_browser = True
 
 ## Hashed password to use for web authentication.
 #  
@@ -273,7 +274,7 @@ c.NotebookApp.open_browser = False
 #    from notebook.auth import passwd; passwd()
 #  
 #  The string should be of the form type:salt:hashed-password.
-c.NotebookApp.password = u'sha1:d70c51db0744:ce3686fa18f9e7455bf0db09511ec87ffba24616'
+#c.NotebookApp.password = ''
 
 ## Forces users to use a password for the Notebook server. This is useful in a
 #  multi user environment, for instance when everybody in the LAN can access each
@@ -284,7 +285,7 @@ c.NotebookApp.password = u'sha1:d70c51db0744:ce3686fa18f9e7455bf0db09511ec87ffba
 #c.NotebookApp.password_required = False
 
 ## The port the notebook server will listen on.
-c.NotebookApp.port = 8888
+#c.NotebookApp.port = 8888
 
 ## The number of additional ports to try if the specified port is not available.
 #c.NotebookApp.port_retries = 50
@@ -528,7 +529,7 @@ c.NotebookApp.port = 8888
 #c.Session.unpacker = 'json'
 
 ## Username for the Session. Default is your system username.
-#c.Session.username = 'username'
+#c.Session.username = 'jovyan'
 
 #------------------------------------------------------------------------------
 # MultiKernelManager(LoggingConfigurable) configuration
