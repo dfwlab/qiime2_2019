@@ -12,6 +12,8 @@ RUN pip install --no-cache --upgrade pip && \
 RUN pip install PyGithub
 
 # copy file
+COPY mouse_tutorial /data/mouse_tutorial
+COPY mouse_result /data/mouse_result
 #ADD picrust2-2.0.3-b.tar /tmp
 ADD q2-picrust2-0.0.1.tar /tmp
 
