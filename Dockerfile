@@ -36,7 +36,7 @@ RUN cd ../tmp/q2-picrust2-0.0.1 && \
 #    rm -rf *
 
 # 添加notebook配置文件（本地使用）
-#ADD jupyter_notebook_config.py /home/qiime2/.jupyter/
+ADD jupyter_notebook_config.py /home/jovyan/.jupyter/
 
 # create user with a home directory (Binder使用)
 ARG NB_USER=qiime2
