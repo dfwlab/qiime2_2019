@@ -61,7 +61,7 @@ RUN chmod 777 ${HOME}/mouse_result && \
     chmod 777 ${HOME}/qiime_viwer.py
 
 # download picrust2 reference files
-RUN cs ${HOME}/mouse_tutorial/PICRUSt2_reference_files && \
+RUN cd ${HOME}/mouse_tutorial/PICRUSt2_reference_files && \
     wget http://kronos.pharmacology.dal.ca/public_files/tutorial_datasets/picrust2_tutorial_files/reference.fna.qza && \
     wget http://kronos.pharmacology.dal.ca/public_files/tutorial_datasets/picrust2_tutorial_files/reference.tre.qza
 
