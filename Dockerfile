@@ -26,8 +26,14 @@ RUN conda install -c bioconda -c conda-forge picrust2=2.2.0_b
 #    conda-env update -n qiime2-2019.10 -f picrust2-env.yaml && \
 #    pip install --editable .
 
-RUN conda install -c gavinmdouglas q2-picrust2=2019.7
-RUN qiime dev refresh-cache
+#RUN conda install -c gavinmdouglas q2-picrust2=2019.7
+#RUN qiime dev refresh-cache
+RUN wget https://github.com/gavinmdouglas/q2-picrust2/archive/master.tar.gz && \
+    tar xvzf master.tar.gz && \
+    cd master && \
+    python setup.py install && \
+    qiime dev refresh-cache
+    
 #RUN cd ../tmp/q2-picrust2-0.0.1 && \
 #    python setup.py install && \
 #    qiime dev refresh-cache
