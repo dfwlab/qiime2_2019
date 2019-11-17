@@ -4,6 +4,12 @@ FROM qiime2/core:2019.10
 # 作者和邮箱
 MAINTAINER ddhmed dfw_bioinfo@126.com
 
+RUN conda install python=3.6
+
+# install the notebook package
+RUN pip install --no-cache --upgrade pip && \
+    pip install --no-cache notebook
+    
 # install the PyGithub
 RUN pip install PyGithub
 
@@ -25,10 +31,6 @@ RUN qiime dev refresh-cache
 #RUN cd ../tmp/q2-picrust2-0.0.1 && \
 #    python setup.py install && \
 #    qiime dev refresh-cache
-
-# install the notebook package
-RUN pip install --no-cache --upgrade pip && \
-    pip install --no-cache notebook
 
 # create user with a home directory (Binder使用)
 ARG NB_USER
