@@ -31,7 +31,7 @@ RUN conda install -c bioconda -c conda-forge picrust2=2.2.0_b
 RUN cd ../tmp && \
     wget https://github.com/gavinmdouglas/q2-picrust2/archive/master.tar.gz && \
     tar xvzf master.tar.gz && \
-    ls && \
+    cd q2-picrust2-master && \
     python setup.py install && \
     qiime dev refresh-cache
     
