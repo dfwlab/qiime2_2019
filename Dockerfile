@@ -5,28 +5,31 @@ FROM qiime2/core:2019.10
 MAINTAINER ddhmed dfw_bioinfo@126.com
 
 # install the notebook package
-RUN pip install --no-cache --upgrade pip && \
-    pip install --no-cache notebook
+#RUN pip install --no-cache --upgrade pip && \
+#    pip install --no-cache notebook
+RUN conda install notebook
 
 # install the PyGithub
 RUN pip install PyGithub
 
 #ADD picrust2-2.0.3-b.tar /tmp
-ADD q2-picrust2-0.0.1.tar /tmp
+#ADD q2-picrust2-0.0.1.tar /tmp
 
 # install picrust2
-RUN conda install -c bioconda -c conda-forge picrust2=2.0.3_b
-RUN cd ../tmp && \
-    wget http://sh-ctfs.ftn.qq.com/ftn_handler/cd473c12e5ffe24f36c88a0f727ca9255666a05b3eeae92ecf666603b280548f71e66d1f30a343a1ec18a5b25eed597fabefff61c315c65bb8dbf4c5829acb0d/?fname=picrust2-2.0.3-b.tar && \
-    mv index.html?fname=picrust2-2.0.3-b.tar picrust2-2.0.3-b.tar &&\
-    tar -xvf picrust2-2.0.3-b.tar && \
-    cd picrust2-2.0.3-b && \
-    conda-env update -n qiime2-2019.10 -f picrust2-env.yaml && \
-    pip install --editable .
+RUN conda install -c bioconda -c conda-forge picrust2=2.2.0_b
+#RUN cd ../tmp && \
+#    wget http://sh-ctfs.ftn.qq.com/ftn_handler/cd473c12e5ffe24f36c88a0f727ca9255666a05b3eeae92ecf666603b280548f71e66d1f30a343a1ec18a5b25eed597fabefff61c315c65bb8dbf4c5829acb0d/?fname=picrust2-2.0.3-b.tar && \
+#    mv index.html?fname=picrust2-2.0.3-b.tar picrust2-2.0.3-b.tar &&\
+#    tar -xvf picrust2-2.0.3-b.tar && \
+#    cd picrust2-2.0.3-b && \
+#    conda-env update -n qiime2-2019.10 -f picrust2-env.yaml && \
+#    pip install --editable .
 
-RUN cd ../tmp/q2-picrust2-0.0.1 && \
-    python setup.py install && \
-    qiime dev refresh-cache
+RUN conda install q2-picrust2=2019.10 -c conda-forge -c bioconda -c gavinmdouglas
+RUN qiime dev refresh-cache
+#RUN cd ../tmp/q2-picrust2-0.0.1 && \
+#    python setup.py install && \
+#    qiime dev refresh-cache
 
 # create user with a home directory (Binder使用)
 ARG NB_USER
