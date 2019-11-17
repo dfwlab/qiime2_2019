@@ -21,10 +21,10 @@ RUN pip install PyGithub
 RUN conda env list
 
 RUN cd ../tmp && \
-    wget https://github.com/picrust/picrust2/archive/v2.1.4-b.tar.gz && \
-    tar xvzf v2.1.4-b.tar.gz && \
+    wget https://github.com/picrust/picrust2/archive/v2.0.3-b.tar.gz && \
+    tar xvzf v2.0.3-b.tar.gz && \
     ls && \
-    cd picrust2-v2.1.4-b && \
+    cd picrust2-v2.0.3-b && \
     conda-env update -n qiime2-2019.10 -f  picrust2-env.yaml && \
     pip install --editable . && \
     qiime dev refresh-cache
