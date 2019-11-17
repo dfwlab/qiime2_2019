@@ -1,5 +1,5 @@
 # 获取Qiime2最新镜像，进行后续安装
-FROM qiime2/core:2019.7
+FROM qiime2/core:2019.10
 
 # 作者和邮箱
 MAINTAINER ddhmed dfw_bioinfo@126.com
@@ -17,7 +17,7 @@ RUN pip install PyGithub
 #ADD q2-picrust2-0.0.1.tar /tmp
 
 # install picrust2
-RUN conda install -c bioconda -c conda-forge picrust2=2.2.0_b
+#RUN conda install -c bioconda -c conda-forge picrust2=2.2.0_b
 #RUN conda env list
 
 RUN cd ../tmp && \
