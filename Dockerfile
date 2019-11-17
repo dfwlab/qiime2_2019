@@ -1,17 +1,10 @@
 # 获取Qiime2最新镜像，进行后续安装
-FROM qiime2/core:2019.10
+FROM qiime2/core:2019.7
 
 # 作者和邮箱
 MAINTAINER ddhmed dfw_bioinfo@126.com
 
 RUN conda install python=3.6
-
-# install the notebook package
-RUN pip install --no-cache --upgrade pip && \
-    pip install --no-cache notebook
-    
-# install the PyGithub
-RUN pip install PyGithub
 
 #ADD picrust2-2.0.3-b.tar /tmp
 #ADD q2-picrust2-0.0.1.tar /tmp
@@ -23,18 +16,9 @@ RUN pip install PyGithub
 RUN cd ../tmp && \
     wget https://github.com/picrust/picrust2/archive/v2.2.0-b.tar.gz && \
     tar xvzf v2.2.0-b.tar.gz && \
-    ls && \
     cd picrust2-2.2.0-b && \
-    conda-env update -n qiime2-2019.10 -f  picrust2-env.yaml && \
+    conda-env update -n qiime2-2019.7 -f  picrust2-env.yaml && \
     pip install --editable .
-
-#RUN cd ../tmp && \
-#    wget http://sh-ctfs.ftn.qq.com/ftn_handler/cd473c12e5ffe24f36c88a0f727ca9255666a05b3eeae92ecf666603b280548f71e66d1f30a343a1ec18a5b25eed597fabefff61c315c65bb8dbf4c5829acb0d/?fname=picrust2-2.0.3-b.tar && \
-#    mv index.html?fname=picrust2-2.0.3-b.tar picrust2-2.0.3-b.tar &&\
-#    tar -xvf picrust2-2.0.3-b.tar && \
-#    cd picrust2-2.0.3-b && \
-#    conda-env update -n qiime2-2019.10 -f picrust2-env.yaml && \
-#    pip install --editable .
 
 #RUN conda install -c gavinmdouglas q2-picrust2=2019.7
 #RUN qiime dev refresh-cache
@@ -48,6 +32,13 @@ RUN cd ../tmp && \
 #RUN cd ../tmp/q2-picrust2-0.0.1 && \
 #    python setup.py install && \
 #    qiime dev refresh-cache
+
+# install the notebook package
+RUN pip install --no-cache --upgrade pip && \
+    pip install --no-cache notebook
+    
+# install the PyGithub
+RUN pip install PyGithub
 
 # create user with a home directory (Binder使用)
 ARG NB_USER
