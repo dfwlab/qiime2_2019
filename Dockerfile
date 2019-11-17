@@ -25,7 +25,7 @@ RUN cd ../tmp && \
     tar xvzf v2.2.0-b.tar.gz && \
     ls && \
     cd picrust2-2.2.0-b && \
-    conda-env update -n qiime2-2019.7 -f  picrust2-env.yaml && \
+    conda-env update -n qiime2-2019.10 -f  picrust2-env.yaml && \
     pip install --editable .
 
 #RUN cd ../tmp && \
