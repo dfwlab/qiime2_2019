@@ -4,11 +4,6 @@ FROM qiime2/core:2019.10
 # 作者和邮箱
 MAINTAINER ddhmed dfw_bioinfo@126.com
 
-# install the notebook package
-#RUN pip install --no-cache --upgrade pip && \
-#    pip install --no-cache notebook
-RUN conda install notebook
-
 # install the PyGithub
 RUN pip install PyGithub
 
@@ -57,6 +52,10 @@ USER ${USER}
 # 删除临时文件
 #RUN cd ../temp && \
 #    rm -rf *
+
+# install the notebook package
+RUN pip install --no-cache --upgrade pip && \
+    pip install --no-cache notebook
 
 # 添加notebook配置文件（本地使用）
 #ADD jupyter_notebook_config.py /home/qiime2/.jupyter/
