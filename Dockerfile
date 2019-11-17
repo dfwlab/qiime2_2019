@@ -1,5 +1,5 @@
 # 获取Qiime2最新镜像，进行后续安装
-FROM qiime2/core:2019.10
+FROM qiime2/core:2019.7
 
 # 作者和邮箱
 MAINTAINER ddhmed dfw_bioinfo@126.com
@@ -21,11 +21,11 @@ RUN pip install PyGithub
 RUN conda env list
 
 RUN cd ../tmp && \
-    wget https://github.com/picrust/picrust2/archive/v2.1.3-b.tar.gz && \
-    tar xvzf v2.1.3-b.tar.gz && \
+    wget https://github.com/picrust/picrust2/archive/v2.2.0-b.tar.gz && \
+    tar xvzf v2.2.0-b.tar.gz && \
     ls && \
-    cd picrust2-2.1.3-b && \
-    conda-env update -n qiime2-2019.10 -f  picrust2-env.yaml && \
+    cd picrust2-2.2.0-b && \
+    conda-env update -n qiime2-2019.7 -f  picrust2-env.yaml && \
     pip install --editable . && \
     qiime dev refresh-cache
 
@@ -40,9 +40,9 @@ RUN cd ../tmp && \
 #RUN conda install -c gavinmdouglas q2-picrust2=2019.7
 #RUN qiime dev refresh-cache
 RUN cd ../tmp && \
-    wget https://github.com/gavinmdouglas/q2-picrust2/archive/master.tar.gz && \
-    tar xvzf master.tar.gz && \
-    cd q2-picrust2-master && \
+    wget https://github.com/gavinmdouglas/q2-picrust2/archive/2019.7_0.tar.gz && \
+    tar xvzf 2019.7_0.tar.gz && \
+    cd q2-picrust2-2019.7_0 && \
     python setup.py install && \
     qiime dev refresh-cache
     
