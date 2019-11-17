@@ -26,6 +26,10 @@ RUN qiime dev refresh-cache
 #    python setup.py install && \
 #    qiime dev refresh-cache
 
+# install the notebook package
+RUN pip install --no-cache --upgrade pip && \
+    pip install --no-cache notebook
+
 # create user with a home directory (Binder使用)
 ARG NB_USER
 ARG NB_UID
@@ -52,10 +56,6 @@ USER ${USER}
 # 删除临时文件
 #RUN cd ../temp && \
 #    rm -rf *
-
-# install the notebook package
-RUN pip install --no-cache --upgrade pip && \
-    pip install --no-cache notebook
 
 # 添加notebook配置文件（本地使用）
 #ADD jupyter_notebook_config.py /home/qiime2/.jupyter/
