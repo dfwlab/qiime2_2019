@@ -45,6 +45,10 @@ COPY mouse_tutorial ${HOME}/mouse_tutorial
 COPY mouse_result ${HOME}/mouse_result
 COPY qiime_viwer.py ${HOME}
 
+RUN chmod 777 ${HOME}/mouse_result && \
+    chmod 777 ${HOME}/mouse_tutorial && \
+    chmod 777 ${HOME}/qiime_viwer.py
+
 # 删除临时文件
 #RUN cd ../temp && \
 #    rm -rf *
