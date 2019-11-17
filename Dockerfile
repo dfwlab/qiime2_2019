@@ -18,6 +18,8 @@ RUN pip install PyGithub
 
 # install picrust2
 #RUN conda install -c bioconda -c conda-forge picrust2=2.2.0_b
+RUN conda env list
+
 RUN cd ../tmp && \
     wget https://github.com/picrust/picrust2/archive/v2.2.0-b.tar.gz && \
     tar xvzf v2.2.0-b.tar.gz && \
